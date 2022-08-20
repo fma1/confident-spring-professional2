@@ -1,15 +1,11 @@
 package com.marcobehler.web
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.marcobehler.service.InvoiceService
+import com.marcobehler.context.Application._
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 class MyFancyPdfServlet extends HttpServlet {
-  private val invoiceService = new InvoiceService()
-  private val objectMapper = new ObjectMapper().registerModule(DefaultScalaModule)
-
   override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {
     if (request.getRequestURI.equalsIgnoreCase("/")) {
       response.setContentType("text/html; charset=UTF-8")

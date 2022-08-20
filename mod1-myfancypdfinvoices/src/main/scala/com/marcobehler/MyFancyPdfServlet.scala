@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
-class MyFirstServlet extends HttpServlet {
+class MyFancyPdfServlet extends HttpServlet {
   private val invoiceService = new InvoiceService()
   private val objectMapper = new ObjectMapper().registerModule(DefaultScalaModule)
 

@@ -9,7 +9,7 @@ object FancyPDFInvoicesApplicationLauncher {
     tomcat.getConnector
 
     val ctx = tomcat.addContext("", null)
-    val servlet = Tomcat.addServlet(ctx, "myFirstServlet", new MyFirstServlet())
+    val servlet = Tomcat.addServlet(ctx, "myFirstServlet", new MyFancyPdfServlet())
     servlet.setLoadOnStartup(1)
     servlet.addMapping("/*")
 

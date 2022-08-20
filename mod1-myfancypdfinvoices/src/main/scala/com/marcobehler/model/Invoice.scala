@@ -1,4 +1,4 @@
-package com.marcobehler
+package com.marcobehler.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

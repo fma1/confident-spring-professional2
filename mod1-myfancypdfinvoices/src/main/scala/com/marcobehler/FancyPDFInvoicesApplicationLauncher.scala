@@ -1,5 +1,6 @@
 package com.marcobehler
 
+import com.marcobehler.web.MyFancyPdfServlet
 import org.apache.catalina.startup.Tomcat
 
 object FancyPDFInvoicesApplicationLauncher {

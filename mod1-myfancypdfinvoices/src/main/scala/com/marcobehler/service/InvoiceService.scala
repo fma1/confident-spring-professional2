@@ -1,7 +1,9 @@
-package com.marcobehler
+package com.marcobehler.service
 
-import java.util.{List => JList}
+import com.marcobehler.model.Invoice
+
 import java.util.concurrent.CopyOnWriteArrayList
+import java.util.{List => JList}
 
 class InvoiceService {
   private val invoices = new CopyOnWriteArrayList[Invoice]()

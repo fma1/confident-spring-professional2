@@ -1,7 +1,8 @@
-package com.marcobehler
+package com.marcobehler.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.marcobehler.service.InvoiceService
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 

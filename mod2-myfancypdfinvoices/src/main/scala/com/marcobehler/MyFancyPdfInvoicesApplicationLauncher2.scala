@@ -1,6 +1,6 @@
 package com.marcobehler
 
-import com.marcobehler.web.MyFancyPdfServlet
+import com.marcobehler.web.MyFancyPdfServlet2
 import org.apache.catalina.startup.Tomcat
 
 object MyFancyPdfInvoicesApplicationLauncher2 {
@@ -10,7 +10,7 @@ object MyFancyPdfInvoicesApplicationLauncher2 {
     tomcat.getConnector
 
     val ctx = tomcat.addContext("", null)
-    val servlet = Tomcat.addServlet(ctx, "myFirstServlet", new MyFancyPdfServlet())
+    val servlet = Tomcat.addServlet(ctx, "myFirstServlet", new MyFancyPdfServlet2())
     servlet.setLoadOnStartup(1)
     servlet.addMapping("/*")
 

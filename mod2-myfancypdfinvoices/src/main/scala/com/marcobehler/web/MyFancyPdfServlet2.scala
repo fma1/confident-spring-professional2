@@ -4,7 +4,7 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
-class MyFancyPdfServlet extends HttpServlet {
+class MyFancyPdfServlet2 extends HttpServlet {
   override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {
     if (request.getRequestURI.equalsIgnoreCase("/")) {
       response.setContentType("text/html; charset=UTF-8")

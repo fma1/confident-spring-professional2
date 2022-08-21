@@ -1,10 +1,25 @@
 package com.marcobehler.web
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.marcobehler.context.MyFancyPdfInvoicesApplicationConfiguration
+import com.marcobehler.service.{InvoiceService, UserService}
+import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 class MyFancyPdfServlet2 extends HttpServlet {
+  var userService: UserService = _
+  var objectMapper: ObjectMapper = _
+  var invoiceService: InvoiceService = _
+
+  override def init(): Unit = {
+    val ctx = new AnnotationConfigApplicationContext(classOf[MyFancyPdfInvoicesApplicationConfiguration])
+    userService = ctx.getBean(classOf[UserService])
+    objectMapper = ctx.getBean(classOf[ObjectMapper])
+    invoiceService = ctx.getBean(classOf[InvoiceService])
+  }
+
   override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {
     if (request.getRequestURI.equalsIgnoreCase("/")) {
       response.setContentType("text/html; charset=UTF-8")

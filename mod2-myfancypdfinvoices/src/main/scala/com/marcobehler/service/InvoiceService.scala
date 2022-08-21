@@ -12,8 +12,6 @@ import scala.beans.BeanProperty
 class InvoiceService {
   private val invoices = new CopyOnWriteArrayList[Invoice]()
 
-  @Autowired
-  @BeanProperty
   var userService: UserService = _
 
   def findAll(): JList[Invoice] = {
@@ -30,5 +28,12 @@ class InvoiceService {
     val invoice = Invoice(userId, amount, "http://www.africau.edu/images/default/sample.pdf")
     invoices.add(invoice)
     invoice
+  }
+
+  def getUserService: UserService = userService
+
+  @Autowired
+  def setUserService(userService: UserService): Unit = {
+    this.userService = userService
   }
 }

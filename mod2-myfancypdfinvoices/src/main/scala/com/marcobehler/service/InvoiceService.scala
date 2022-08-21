@@ -1,6 +1,7 @@
 package com.marcobehler.service
 
 import com.marcobehler.model.Invoice
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 import java.util.concurrent.CopyOnWriteArrayList
@@ -8,7 +9,7 @@ import java.util.{List => JList}
 import javax.annotation.{PostConstruct, PreDestroy}
 
 @Component
-class InvoiceService(userService: UserService) {
+class InvoiceService(userService: UserService, @Value("${cdn.url}") cdnUrl: String) {
   private val invoices = new CopyOnWriteArrayList[Invoice]()
 
   @PostConstruct
@@ -34,7 +35,7 @@ class InvoiceService(userService: UserService) {
     }
 
     // TODO: real pdf creation and storing it on network server
-    val invoice = Invoice(userId, amount, "http://www.africau.edu/images/default/sample.pdf")
+    val invoice = Invoice(userId, amount, cdnUrl + "/images/default/sample.pdf")
     invoices.add(invoice)
     invoice
   }

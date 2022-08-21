@@ -2,17 +2,12 @@ package com.marcobehler.context
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.marcobehler.service.{InvoiceService, UserService}
-import org.springframework.beans.factory.config.ConfigurableBeanFactory
-import org.springframework.context.annotation.{Bean, Configuration, Scope}
+import com.marcobehler.MyFancyPdfInvoicesApplicationLauncher2
+import org.springframework.context.annotation.{Bean, ComponentScan, Configuration}
 
 @Configuration
+@ComponentScan(basePackageClasses = Array(classOf[MyFancyPdfInvoicesApplicationLauncher2]))
 class MyFancyPdfInvoicesApplicationConfiguration {
-  @Bean
-//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-  def userService = new UserService()
-  @Bean
-  def invoiceService(userService: UserService) = new InvoiceService(userService)
   @Bean
   def objectMapper: ObjectMapper = new ObjectMapper().registerModule(DefaultScalaModule)
 }

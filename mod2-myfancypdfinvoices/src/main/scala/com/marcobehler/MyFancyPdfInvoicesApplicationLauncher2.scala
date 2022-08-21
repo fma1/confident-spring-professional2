@@ -17,3 +17,5 @@ object MyFancyPdfInvoicesApplicationLauncher2 {
     tomcat.start()
   }
 }
+
+class MyFancyPdfInvoicesApplicationLauncher2

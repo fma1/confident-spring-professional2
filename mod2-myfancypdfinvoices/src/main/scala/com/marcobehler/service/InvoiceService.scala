@@ -1,10 +1,12 @@
 package com.marcobehler.service
 
 import com.marcobehler.model.Invoice
+import org.springframework.stereotype.Component
 
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.{List => JList}
 
+@Component
 class InvoiceService(userService: UserService) {
   private val invoices = new CopyOnWriteArrayList[Invoice]()
 

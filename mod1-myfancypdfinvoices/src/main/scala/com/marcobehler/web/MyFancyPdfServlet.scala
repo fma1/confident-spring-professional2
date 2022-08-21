@@ -1,7 +1,7 @@
 package com.marcobehler.web
 
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.marcobehler.context.Application._
+import com.marcobehler.context.MyFancyPdfApplicationContext._
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 

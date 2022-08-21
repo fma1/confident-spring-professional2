@@ -3,7 +3,7 @@ package com.marcobehler
 import com.marcobehler.web.MyFancyPdfServlet
 import org.apache.catalina.startup.Tomcat
 
-object FancyPDFInvoicesApplicationLauncher {
+object MyFancyPdfInvoicesApplicationLauncher {
   def main(args: Array[String]): Unit = {
     val tomcat = new Tomcat()
     tomcat.setPort(8080)

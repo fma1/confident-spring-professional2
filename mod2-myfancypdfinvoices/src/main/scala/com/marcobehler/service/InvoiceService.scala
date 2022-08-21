@@ -1,14 +1,20 @@
 package com.marcobehler.service
 
 import com.marcobehler.model.Invoice
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.{List => JList}
+import scala.beans.BeanProperty
 
 @Component
-class InvoiceService(userService: UserService) {
+class InvoiceService {
   private val invoices = new CopyOnWriteArrayList[Invoice]()
+
+  @Autowired
+  @BeanProperty
+  var userService: UserService = _
 
   def findAll(): JList[Invoice] = {
     invoices
@@ -25,6 +31,4 @@ class InvoiceService(userService: UserService) {
     invoices.add(invoice)
     invoice
   }
-
-  def getUserService: UserService = userService
 }

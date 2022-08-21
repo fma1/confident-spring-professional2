@@ -5,10 +5,23 @@ import org.springframework.stereotype.Component
 
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.{List => JList}
+import javax.annotation.{PostConstruct, PreDestroy}
 
 @Component
 class InvoiceService(userService: UserService) {
   private val invoices = new CopyOnWriteArrayList[Invoice]()
+
+  @PostConstruct
+  def init(): Unit = {
+    println("Fetching PDF Template from S3...")
+    // TODO download from s3 and save locally
+  }
+
+  @PreDestroy
+  def shutdown(): Unit = {
+    println("Deleting downloaded templates...")
+    // TODO actual deletion of PDFs
+  }
 
   def findAll(): JList[Invoice] = {
     invoices

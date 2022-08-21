@@ -19,15 +19,7 @@ class MyFancyPdfServlet2 extends HttpServlet {
     objectMapper = ctx.getBean(classOf[ObjectMapper])
     invoiceService = ctx.getBean(classOf[InvoiceService])
 
-    /*
-    println(ctx.getBean(classOf[UserService]))
-    println(ctx.getBean(classOf[UserService]))
-    println(ctx.getBean(classOf[UserService]))
-
-    println(ctx.getBean(classOf[InvoiceService]).getUserService)
-    println(ctx.getBean(classOf[InvoiceService]).getUserService)
-    println(ctx.getBean(classOf[InvoiceService]).getUserService)
-     */
+    ctx.registerShutdownHook()
   }
 
   override def doGet(request: HttpServletRequest, response: HttpServletResponse): Unit = {

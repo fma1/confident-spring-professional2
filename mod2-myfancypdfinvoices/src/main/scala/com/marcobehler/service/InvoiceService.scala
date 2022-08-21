@@ -23,4 +23,6 @@ class InvoiceService(userService: UserService) {
     invoices.add(invoice)
     invoice
   }
+
+  def getUserService: UserService = userService
 }

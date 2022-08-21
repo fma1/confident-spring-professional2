@@ -9,7 +9,7 @@ import org.springframework.context.annotation.{Bean, Configuration, Scope}
 @Configuration
 class MyFancyPdfInvoicesApplicationConfiguration {
   @Bean
-  @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
   def userService = new UserService()
   @Bean
   def invoiceService(userService: UserService) = new InvoiceService(userService)

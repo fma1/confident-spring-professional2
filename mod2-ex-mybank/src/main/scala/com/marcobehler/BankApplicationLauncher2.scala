@@ -3,7 +3,7 @@ package com.marcobehler
 import com.marcobehler.web.BankServlet
 import org.apache.catalina.startup.Tomcat
 
-object BankApplicationLauncher {
+object BankApplicationLauncher2 {
   val PORT: Int = System.getProperty("server.port", "8080").toInt
 
   def main(args: Array[String]): Unit = {

@@ -1,10 +1,22 @@
 package com.marcobehler.web
 
-import com.marcobehler.context.BankApplicationContext._
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.marcobehler.context.BankApplicationConfiguration
+import com.marcobehler.service.TransactionService
+import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 class BankServlet extends HttpServlet {
+  var transactionService: TransactionService = _
+  var objectMapper: ObjectMapper = _
+
+  override def init(): Unit = {
+    val ctx = new AnnotationConfigApplicationContext(classOf[BankApplicationConfiguration])
+    transactionService = ctx.getBean(classOf[TransactionService])
+    objectMapper = ctx.getBean(classOf[ObjectMapper])
+  }
+
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
     if (req.getRequestURI.equalsIgnoreCase("/")) {
       resp.setContentType("text/html; charset=UTF-8")

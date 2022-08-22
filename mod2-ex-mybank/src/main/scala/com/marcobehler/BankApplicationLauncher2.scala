@@ -19,3 +19,5 @@ object BankApplicationLauncher2 {
     tomcat.start()
   }
 }
+
+class BankApplicationLauncher2

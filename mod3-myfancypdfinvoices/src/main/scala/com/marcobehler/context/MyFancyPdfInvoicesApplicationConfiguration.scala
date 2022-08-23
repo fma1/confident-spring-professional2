@@ -7,6 +7,7 @@ import org.springframework.context.annotation.{Bean, ComponentScan, Configuratio
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor
 import org.springframework.web.servlet.config.annotation.{ContentNegotiationConfigurer, EnableWebMvc, WebMvcConfigurer}
 
 import java.util.{List => JList}
@@ -18,6 +19,9 @@ import java.util.{List => JList}
   , ignoreResourceNotFound = true)
 @EnableWebMvc
 class MyFancyPdfInvoicesApplicationConfiguration extends WebMvcConfigurer {
+  @Bean
+  def methodValidationPostProcessor() = new MethodValidationPostProcessor()
+
   @Bean
   def objectMapper: ObjectMapper = new ObjectMapper().registerModule(DefaultScalaModule)
 

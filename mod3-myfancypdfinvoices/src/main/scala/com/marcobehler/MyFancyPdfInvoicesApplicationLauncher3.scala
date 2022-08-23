@@ -1,6 +1,6 @@
 package com.marcobehler
 
-import com.marcobehler.context.MyFancyPdfInvoicesApplicationConfiguration
+import com.marcobehler.context.ApplicationConfiguration
 import org.apache.catalina.startup.Tomcat
 import org.springframework.web.context.WebApplicationContext
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext
@@ -26,7 +26,7 @@ object MyFancyPdfInvoicesApplicationLauncher3 {
 
   def createApplicationContext(servletContext: ServletContext): WebApplicationContext = {
     val ctx = new AnnotationConfigWebApplicationContext()
-    ctx.register(classOf[MyFancyPdfInvoicesApplicationConfiguration])
+    ctx.register(classOf[ApplicationConfiguration])
     ctx.setServletContext(servletContext)
     ctx.refresh()
     ctx.registerShutdownHook()

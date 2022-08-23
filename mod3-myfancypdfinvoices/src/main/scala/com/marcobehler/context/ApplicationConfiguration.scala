@@ -18,7 +18,7 @@ import java.util.{List => JList}
 @PropertySource(value = Array("classpath:/application-${spring.profiles.active}.properties")
   , ignoreResourceNotFound = true)
 @EnableWebMvc
-class MyFancyPdfInvoicesApplicationConfiguration extends WebMvcConfigurer {
+class ApplicationConfiguration extends WebMvcConfigurer {
   @Bean
   def methodValidationPostProcessor() = new MethodValidationPostProcessor()
 

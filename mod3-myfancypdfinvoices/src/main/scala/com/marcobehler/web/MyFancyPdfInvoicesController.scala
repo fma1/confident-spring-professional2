@@ -1,8 +1,9 @@
 package com.marcobehler.web
 
+import com.marcobehler.dto.InvoiceDto
 import com.marcobehler.model.Invoice
 import com.marcobehler.service.InvoiceService
-import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, RequestParam, ResponseBody, RestController}
+import org.springframework.web.bind.annotation.{GetMapping, PathVariable, PostMapping, RequestBody, RequestParam, ResponseBody, RestController}
 
 import java.util.{List => JList}
 
@@ -15,7 +16,12 @@ class MyFancyPdfInvoicesController(invoiceService: InvoiceService) {
   }
 
   @PostMapping(Array("/invoices"))
-  def createInvoice(@RequestParam("user_id") userId: String, @RequestParam amount: Int): Invoice = {
+  def createInvoice(@RequestBody invoiceDto: InvoiceDto): Invoice = {
+    invoiceService.create(invoiceDto.userId, invoiceDto.amount)
+  }
+
+  @PostMapping(Array("/invoicesRP"))
+  def createInvoiceRequestParam(@RequestParam("user_id") userId: String, @RequestParam amount: Int): Invoice = {
     invoiceService.create(userId, amount)
   }
 

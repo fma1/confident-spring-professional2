@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
 import java.util.concurrent.CopyOnWriteArrayList
-import java.util.{List => JList}
+import java.util.{ArrayList, List => JList}
+import scala.jdk.CollectionConverters._
 
 @Component
 class TransactionService(@Value("${bank.slogan}") bankSlogan: String) {
@@ -15,8 +16,14 @@ class TransactionService(@Value("${bank.slogan}") bankSlogan: String) {
     transactions
   }
 
-  def create(amount: BigDecimal, reference: String): Transaction = {
-    val transaction = Transaction(amount, reference, bankSlogan)
+  def findByReceivingUser(userId: String): JList[Transaction] = {
+    val filteredCollection = transactions.asScala.filter(_.receivingUser == userId).asJavaCollection
+    val aryList = new ArrayList[Transaction](filteredCollection)
+    aryList
+  }
+
+  def create(amount: BigDecimal, reference: String, receivingUser: String): Transaction = {
+    val transaction = Transaction(amount, reference, bankSlogan, receivingUser)
     transactions.add(transaction)
     transaction
   }

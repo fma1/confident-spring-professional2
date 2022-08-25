@@ -26,11 +26,11 @@ class ApplicationConfiguration extends WebMvcConfigurer {
   def methodValidationPostProcessor() = new MethodValidationPostProcessor()
 
   @Bean
-  def objectMapper: ObjectMapper = new ObjectMapper().registerModule(DefaultScalaModule)
+  def objectMapper(): ObjectMapper = new ObjectMapper().registerModule(DefaultScalaModule)
 
   @Bean
   def mappingJackson2HttpMessageConverter(): MappingJackson2HttpMessageConverter = {
-    val mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper)
+    val mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper())
     mappingJackson2HttpMessageConverter
   }
 

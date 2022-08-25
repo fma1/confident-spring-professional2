@@ -17,6 +17,6 @@ class BankController(transactionService: TransactionService) {
 
   @PostMapping(Array("/transactions"))
   def createTransaction(@RequestBody @Valid transactionDto: TransactionDto): Transaction = {
-    transactionService.create(transactionDto.amount, transactionDto.reference)
+    transactionService.create(transactionDto.amount, transactionDto.reference, transactionDto.receivingUser)
   }
 }

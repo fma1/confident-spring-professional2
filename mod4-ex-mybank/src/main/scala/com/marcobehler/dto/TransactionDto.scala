@@ -1,6 +1,6 @@
 package com.marcobehler.dto
 
-import javax.validation.constraints.{Max, Min, NotBlank}
+import javax.validation.constraints.{Max, Min, NotBlank, Size}
 import scala.beans.BeanProperty
 
 class TransactionDto {
@@ -12,4 +12,9 @@ class TransactionDto {
   @BeanProperty
   @NotBlank
   var reference: String = _
+
+  @BeanProperty
+  @NotBlank
+  @Size(min = 1, max = 25)
+  var receivingUser: String = _
 }

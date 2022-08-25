@@ -218,5 +218,6 @@
         <module>mod3-myfancypdfinvoices</module>
         <module>mod3-ex-mybank</module>
         <module>mod4-myfancypdfinvoices</module>
+        <module>mod4-ex-mybank</module>
     </modules>
 </project>

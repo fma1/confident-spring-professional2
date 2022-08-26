@@ -3,6 +3,7 @@ package com.marcobehler.context
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.marcobehler.MyFancyPdfInvoicesApplicationLauncher4
+import org.h2.jdbcx.JdbcDataSource
 import org.springframework.context.annotation.{Bean, ComponentScan, Configuration, PropertySource}
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter
@@ -14,6 +15,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver
 import org.thymeleaf.spring5.view.ThymeleafViewResolver
 
 import java.util.{List => JList}
+import javax.sql.DataSource
 
 @Configuration
 @ComponentScan(basePackageClasses = Array(classOf[MyFancyPdfInvoicesApplicationLauncher4]))
@@ -24,6 +26,15 @@ import java.util.{List => JList}
 class ApplicationConfiguration extends WebMvcConfigurer {
   @Bean
   def methodValidationPostProcessor() = new MethodValidationPostProcessor()
+
+  @Bean
+  def dataSource: DataSource = {
+    val dataSource = new JdbcDataSource()
+    dataSource.setURL("jdbc:h2:~/myFirstH2Database;INIT=RUNSCRIPT FROM 'classpath:schema.sql'")
+    dataSource.setUser("sa")
+    dataSource.setPassword("sa")
+    dataSource
+  }
 
   @Bean
   def objectMapper(): ObjectMapper = new ObjectMapper().registerModule(DefaultScalaModule)

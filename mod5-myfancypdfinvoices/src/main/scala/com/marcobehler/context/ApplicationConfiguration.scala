@@ -2,12 +2,13 @@ package com.marcobehler.context
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.marcobehler.MyFancyPdfInvoicesApplicationLauncher4
+import com.marcobehler.MyFancyPdfInvoicesApplicationLauncher5
 import org.h2.jdbcx.JdbcDataSource
 import org.springframework.context.annotation.{Bean, ComponentScan, Configuration, PropertySource}
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor
 import org.springframework.web.servlet.config.annotation.{ContentNegotiationConfigurer, EnableWebMvc, WebMvcConfigurer}
 import org.thymeleaf.spring5.SpringTemplateEngine
@@ -18,7 +19,7 @@ import java.util.{List => JList}
 import javax.sql.DataSource
 
 @Configuration
-@ComponentScan(basePackageClasses = Array(classOf[MyFancyPdfInvoicesApplicationLauncher4]))
+@ComponentScan(basePackageClasses = Array(classOf[MyFancyPdfInvoicesApplicationLauncher5]))
 @PropertySource(value = Array("classpath:/application.properties"))
 @PropertySource(value = Array("classpath:/application-${spring.profiles.active}.properties")
   , ignoreResourceNotFound = true)
@@ -28,12 +29,17 @@ class ApplicationConfiguration extends WebMvcConfigurer {
   def methodValidationPostProcessor() = new MethodValidationPostProcessor()
 
   @Bean
-  def dataSource: DataSource = {
+  def dataSource(): DataSource = {
     val dataSource = new JdbcDataSource()
     dataSource.setURL("jdbc:h2:~/myFirstH2Database;INIT=RUNSCRIPT FROM 'classpath:schema.sql'")
     dataSource.setUser("sa")
     dataSource.setPassword("sa")
     dataSource
+  }
+
+  @Bean
+  def jdbcTemplate(): JdbcTemplate = {
+    new JdbcTemplate(dataSource())
   }
 
   @Bean

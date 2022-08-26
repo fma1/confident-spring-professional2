@@ -8,7 +8,9 @@ import org.springframework.web.servlet.DispatcherServlet
 
 import javax.servlet.ServletContext
 
-object MyFancyPdfInvoicesApplicationLauncher4 {
+object MyFancyPdfInvoicesApplicationLauncher5 {
+  System.setProperty("spring.profiles.active", "dev")
+
   def main(args: Array[String]): Unit = {
     val tomcat = new Tomcat()
     tomcat.setPort(8080)
@@ -34,4 +36,4 @@ object MyFancyPdfInvoicesApplicationLauncher4 {
   }
 }
 
-class MyFancyPdfInvoicesApplicationLauncher4
+class MyFancyPdfInvoicesApplicationLauncher5

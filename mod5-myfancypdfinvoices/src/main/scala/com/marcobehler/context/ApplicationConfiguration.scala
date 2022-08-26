@@ -9,6 +9,9 @@ import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.datasource.DataSourceTransactionManager
+import org.springframework.transaction.TransactionManager
+import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor
 import org.springframework.web.servlet.config.annotation.{ContentNegotiationConfigurer, EnableWebMvc, WebMvcConfigurer}
 import org.thymeleaf.spring5.SpringTemplateEngine
@@ -24,6 +27,7 @@ import javax.sql.DataSource
 @PropertySource(value = Array("classpath:/application-${spring.profiles.active}.properties")
   , ignoreResourceNotFound = true)
 @EnableWebMvc
+@EnableTransactionManagement
 class ApplicationConfiguration extends WebMvcConfigurer {
   @Bean
   def methodValidationPostProcessor() = new MethodValidationPostProcessor()
@@ -40,6 +44,11 @@ class ApplicationConfiguration extends WebMvcConfigurer {
   @Bean
   def jdbcTemplate(): JdbcTemplate = {
     new JdbcTemplate(dataSource())
+  }
+
+  @Bean
+  def platformTransactionManager(): TransactionManager = {
+    new DataSourceTransactionManager(dataSource())
   }
 
   @Bean

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.support.GeneratedKeyHolder
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.support.TransactionSynchronizationManager
 
 import java.sql.{Connection, ResultSet, Statement}
 import java.util.{UUID, List => JList}
@@ -24,7 +26,10 @@ class InvoiceService(userService: UserService, jdbcTemplate: JdbcTemplate, @Valu
     // TODO actual deletion of PDFs
   }
 
+  @Transactional
   def findAll(): JList[Invoice] = {
+    checkIfTransactionOpen()
+
     jdbcTemplate.query("select id, user_id, pdf_url, amount from invoices", (resultSet: ResultSet, rowNum: Int) => {
       val invoice = new Invoice()
       invoice.id = resultSet.getObject("id").toString
@@ -35,7 +40,10 @@ class InvoiceService(userService: UserService, jdbcTemplate: JdbcTemplate, @Valu
     })
   }
 
+  @Transactional
   def create(userId: String, amount: Int): Invoice = {
+    checkIfTransactionOpen()
+
     val generatedPdfUrl = s"$cdnUrl/images/default/sample.pdf"
     val keyHolder = new GeneratedKeyHolder()
 
@@ -61,4 +69,8 @@ class InvoiceService(userService: UserService, jdbcTemplate: JdbcTemplate, @Valu
   }
 
   def getUserService: UserService = userService
+
+  def checkIfTransactionOpen(): Unit = {
+    println(s"Is a database transaction open? = ${TransactionSynchronizationManager.isActualTransactionActive}")
+  }
 }

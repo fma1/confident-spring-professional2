@@ -8,7 +8,7 @@ import org.springframework.web.servlet.DispatcherServlet
 
 import javax.servlet.ServletContext
 
-object BankApplicationLauncher4 {
+object BankApplicationLauncher5 {
   val PORT: Int = System.getProperty("server.port", "8080").toInt
 
   def main(args: Array[String]): Unit = {
@@ -35,4 +35,4 @@ object BankApplicationLauncher4 {
   }
 }
 
-class BankApplicationLauncher4
+class BankApplicationLauncher5

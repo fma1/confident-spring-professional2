@@ -20,10 +20,24 @@
         <jackson.version>2.13.1</jackson.version>
         <spring.version>5.3.15</spring.version>
         <hibernate.version>6.2.0.Final</hibernate.version>
+        <spring-boot.version>2.7.3</spring-boot.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>maven-plugin</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
@@ -148,6 +162,17 @@
             <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
                     <groupId>net.alchim31.maven</groupId>
                     <artifactId>scala-maven-plugin</artifactId>
                     <version>4.4.0</version>
@@ -239,5 +264,6 @@
         <module>mod4-ex-mybank</module>
         <module>mod5-myfancypdfinvoices</module>
         <module>mod5-ex-mybank</module>
+        <module>mod6-myfancypdfinvoices-springboot</module>
     </modules>
 </project>

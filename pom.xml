@@ -312,5 +312,6 @@
         <module>mod5-myfancypdfinvoices</module>
         <module>mod5-ex-mybank</module>
         <module>mod6-myfancypdfinvoices-springboot</module>
+        <module>mod6-ex-mybank-springboot</module>
     </modules>
 </project>

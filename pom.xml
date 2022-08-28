@@ -26,6 +26,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.vibur</groupId>
+                <artifactId>vibur-dbcp</artifactId>
+                <version>25.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
@@ -313,5 +318,6 @@
         <module>mod5-ex-mybank</module>
         <module>mod6-myfancypdfinvoices-springboot</module>
         <module>mod6-ex-mybank-springboot</module>
+        <module>mod7-marcobehler-spring-boot-starter</module>
     </modules>
 </project>

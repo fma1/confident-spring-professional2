@@ -24,6 +24,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.vibur</groupId>
+            <artifactId>vibur-dbcp</artifactId>
+            <version>25.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.marcobehler</groupId>
+            <artifactId>mod7-marcobehler-spring-boot-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>

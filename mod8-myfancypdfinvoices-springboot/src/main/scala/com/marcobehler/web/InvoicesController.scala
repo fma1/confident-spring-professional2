@@ -6,7 +6,7 @@ import com.marcobehler.service.InvoiceService
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation._
 
-import java.util.{List => JList}
+import java.lang.{Iterable => JIterable}
 import javax.validation.Valid
 import javax.validation.constraints.{Max, Min, NotBlank}
 
@@ -14,8 +14,13 @@ import javax.validation.constraints.{Max, Min, NotBlank}
 @Validated
 class InvoicesController(invoiceService: InvoiceService) {
   @GetMapping(Array("/invoices"))
-  def invoices(): JList[Invoice] = {
+  def invoices(): JIterable[Invoice] = {
     invoiceService.findAll()
+  }
+
+  @GetMapping(Array("/invoices/user/{userId}"))
+  def invoicesByUserId(@PathVariable userId: String): JIterable[Invoice] = {
+    invoiceService.findById(userId)
   }
 
   @PostMapping(Array("/invoices"))

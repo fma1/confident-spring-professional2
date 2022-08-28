@@ -319,5 +319,6 @@
         <module>mod6-myfancypdfinvoices-springboot</module>
         <module>mod6-ex-mybank-springboot</module>
         <module>mod7-marcobehler-spring-boot-starter</module>
+        <module>mod8-myfancypdfinvoices-springboot</module>
     </modules>
 </project>

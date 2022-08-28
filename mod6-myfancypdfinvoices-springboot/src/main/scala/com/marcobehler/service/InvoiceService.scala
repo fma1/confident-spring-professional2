@@ -2,16 +2,18 @@ package com.marcobehler.service
 
 import com.marcobehler.model.Invoice
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.jdbc.support.GeneratedKeyHolder
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
+import org.springframework.transaction.support.TransactionSynchronizationManager
 
-import java.util.concurrent.CopyOnWriteArrayList
-import java.util.{List => JList}
+import java.sql.{Connection, ResultSet, Statement}
+import java.util.{UUID, List => JList}
 import javax.annotation.{PostConstruct, PreDestroy}
 
 @Component
-class InvoiceService(userService: UserService, @Value("${cdn.url}") cdnUrl: String) {
-  private val invoices = new CopyOnWriteArrayList[Invoice]()
-
+class InvoiceService(userService: UserService, jdbcTemplate: JdbcTemplate, @Value("${cdn.url}") cdnUrl: String) {
   @PostConstruct
   def init(): Unit = {
     println("Fetching PDF Template from S3...")
@@ -24,21 +26,51 @@ class InvoiceService(userService: UserService, @Value("${cdn.url}") cdnUrl: Stri
     // TODO actual deletion of PDFs
   }
 
+  @Transactional
   def findAll(): JList[Invoice] = {
-    invoices
+    checkIfTransactionOpen()
+
+    jdbcTemplate.query("select id, user_id, pdf_url, amount from invoices", (resultSet: ResultSet, rowNum: Int) => {
+      val invoice = new Invoice()
+      invoice.id = resultSet.getObject("id").toString
+      invoice.pdfUrl = resultSet.getString("pdf_url")
+      invoice.userId = resultSet.getString("user_id")
+      invoice.amount = resultSet.getInt("amount")
+      invoice
+    })
   }
 
+  @Transactional
   def create(userId: String, amount: Int): Invoice = {
-    val user = userService.findById(userId)
-    if (user == null) {
-      throw new IllegalStateException()
-    }
+    checkIfTransactionOpen()
 
-    // TODO: real pdf creation and storing it on network server
-    val invoice = Invoice(userId, amount, cdnUrl + "/images/default/sample.pdf")
-    invoices.add(invoice)
+    val generatedPdfUrl = s"$cdnUrl/images/default/sample.pdf"
+    val keyHolder = new GeneratedKeyHolder()
+
+    jdbcTemplate.update((conn: Connection) => {
+      val preparedStatement = conn.
+        prepareStatement("insert into invoices (user_id, pdf_url, amount) values (?, ?, ?)",
+          Statement.RETURN_GENERATED_KEYS)
+
+      preparedStatement.setString(1, userId)
+      preparedStatement.setString(2, generatedPdfUrl)
+      preparedStatement.setInt(3, amount)
+
+      preparedStatement
+    }, keyHolder)
+
+    val uuid = Option(keyHolder.getKeys.values)
+      .map(_.iterator.next.asInstanceOf[UUID].toString)
+      .orNull
+
+    val invoice = Invoice(userId, amount, generatedPdfUrl)
+    invoice.id = uuid
     invoice
   }
 
   def getUserService: UserService = userService
+
+  def checkIfTransactionOpen(): Unit = {
+    println(s"Is a database transaction open? = ${TransactionSynchronizationManager.isActualTransactionActive}")
+  }
 }

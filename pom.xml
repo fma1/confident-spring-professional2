@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.marcobehler</groupId>
-    <artifactId>confident-spring-professional</artifactId>
+    <artifactId>confident-spring-professional2</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>confident-spring-professional</name>
+    <name>confident-spring-professional2</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>16</maven.compiler.source>
@@ -320,5 +320,6 @@
         <module>mod6-ex-mybank-springboot</module>
         <module>mod7-marcobehler-spring-boot-starter</module>
         <module>mod8-myfancypdfinvoices-springboot</module>
+        <module>mod8-ex-mybank-springboot</module>
     </modules>
 </project>

@@ -5,13 +5,13 @@ import com.marcobehler.model.Transaction
 import com.marcobehler.service.TransactionService
 import org.springframework.web.bind.annotation.{GetMapping, PostMapping, RequestBody, RestController}
 
-import java.util.{List => JList}
 import javax.validation.Valid
+import java.lang.{Iterable => JIterable}
 
 @RestController
 class BankController(transactionService: TransactionService) {
   @GetMapping(Array("/transactions"))
-  def transactions(): JList[Transaction] = {
+  def transactions(): JIterable[Transaction] = {
     transactionService.findAll()
   }
 

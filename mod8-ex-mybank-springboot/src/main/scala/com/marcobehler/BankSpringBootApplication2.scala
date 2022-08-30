@@ -7,23 +7,26 @@ import org.springframework.core.convert.converter.Converter
 import org.springframework.format.FormatterRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
-object BankSpringBootApplication {
+import java.math.{BigDecimal => JBigDecimal}
+
+object BankSpringBootApplication2 {
   def main(args: Array[String]): Unit = {
-    SpringApplication.run(classOf[BankSpringBootApplication], args: _*)
+    SpringApplication.run(classOf[BankSpringBootApplication2], args: _*)
   }
 
   @Configuration
   class MyConfig extends WebMvcConfigurer {
     override def addFormatters(registry: FormatterRegistry): Unit = {
-      val stringToBigDecimalConverter = new Converter[String, BigDecimal] {
-        override def convert(source: String): BigDecimal = {
-          BigDecimal(source)
+      val stringToJBigDecimalConverter = new Converter[String, JBigDecimal] {
+        override def convert(source: String): JBigDecimal = {
+          new JBigDecimal(source)
         }
       }
-      registry.addConverter(stringToBigDecimalConverter)
+
+      registry.addConverter(stringToJBigDecimalConverter)
     }
   }
 }
 
 @SpringBootApplication
-class BankSpringBootApplication
+class BankSpringBootApplication2

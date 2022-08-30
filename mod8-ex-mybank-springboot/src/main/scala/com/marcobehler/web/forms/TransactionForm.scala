@@ -3,6 +3,8 @@ package com.marcobehler.web.forms
 import javax.validation.constraints.{DecimalMin, Max, NotBlank, NotNull, Size}
 import scala.beans.BeanProperty
 
+import java.math.{BigDecimal => JBigDecimal}
+
 class TransactionForm {
   @BeanProperty
   @NotBlank
@@ -17,5 +19,5 @@ class TransactionForm {
   @NotNull
   @DecimalMin("0.01")
   @Max(100)
-  var amount: BigDecimal = _
+  var amount: JBigDecimal = _
 }

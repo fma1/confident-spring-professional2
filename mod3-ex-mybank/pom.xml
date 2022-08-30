@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>com.marcobehler</groupId>
-        <artifactId>confident-spring-professional</artifactId>
+        <artifactId>confident-spring-professional2</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
